@@ -1,6 +1,8 @@
 import SuperExpressive from 'super-expressive';
 
-export function priceRangeFor(text: string): [number, number?] | undefined {
+export type PriceRange = [number, number?];
+
+export function priceRangeFor(text: string): PriceRange | undefined {
   const minRe = SuperExpressive() //
     .singleLine //
     .startOfInput //
@@ -62,4 +64,28 @@ export function priceRangeFor(text: string): [number, number?] | undefined {
     const max = parseInt(maxMatch.groups['max'], 10);
     return [0, max];
   }
+}
+
+export function priceLevelFor(
+  priceRange: PriceRange,
+  levelRanges: PriceRange[]
+): number[] {
+  const [min, max] = priceRange;
+  const levels = levelRanges
+    .map((levelRange, i) => {
+      const currentLvl = i + 1;
+      const [levelMin, levelMax] = levelRange;
+      if (min <= levelMin) {
+        if (!max) {
+          return currentLvl;
+        } else {
+          if (!!levelMax && max >= levelMax) {
+            return currentLvl;
+          }
+        }
+      }
+      return undefined;
+    })
+    .filter((v): v is number => !!v);
+  return levels;
 }
