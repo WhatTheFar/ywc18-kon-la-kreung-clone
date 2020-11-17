@@ -13,7 +13,8 @@
   "dependencies": {
     "axios": "^0.21.0",
     "super-expressive": "^1.4.0",
-    "vue": "^3.0.2"
+    "vue": "^3.0.2",
+    "vue-router": "^4.0.0-rc.3"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
