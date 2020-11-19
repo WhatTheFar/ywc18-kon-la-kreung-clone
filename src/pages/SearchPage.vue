@@ -264,15 +264,33 @@
                     :merchant="merchant"
                   />
                 </div>
+                <div class="flex justify-center">
+                  <a-button
+                    class="mt-10 w-full max-w-sm block"
+                    style="height: 50px; border-radius: 5px"
+                  >
+                    <span>ดูเพิ่มเติม</span>
+                  </a-button>
+                </div>
               </template>
-              <div class="flex justify-center">
-                <a-button
-                  class="mt-10 w-full max-w-sm block"
-                  style="height: 50px; border-radius: 5px"
-                >
-                  <span>ดูเพิ่มเติม</span>
-                </a-button>
-              </div>
+              <template v-if="!showMerchants">
+                <div class="grid grid-cols-1 gap-2">
+                  <div class="text-center" style="margin-top: 5rem">
+                    <div
+                      class="mt-8 first:mt-0 break-word text-2xl md:text-4xl font-sans font-bold"
+                      style="letter-spacing: -0.02em"
+                    >
+                      ไม่พบสถานที่ที่คุณกำลังหา
+                    </div>
+                    <div
+                      class="mt-4 first:mt-0 break-word text-base"
+                      style="letter-spacing: -0.02em"
+                    >
+                      ร้านค้าที่ท่านค้นหาอาจไม่ได้เข้าร่วมโครงการ คนละครึ่ง
+                    </div>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
         </div>
