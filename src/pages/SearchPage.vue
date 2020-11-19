@@ -242,12 +242,16 @@
 <script lang="ts">
 import { defineComponent, ref, Ref } from 'vue';
 
+import { PanJsAPI } from '/@/api/panjs';
+import { SearchDataGateway } from '/@/gateway/search.gateway';
+import { SearchInteractor } from '/@/domain/usecase/search/search.interactor';
+import { SearchPageViewModel } from './SearchPage.viewmodel';
+import { SearchPagePresenter } from './SearchPage.presenter';
+
 import NearMeSelectOption from './select/NearMeSelectOption.vue';
 import AllLocationsSelectOption from './select/AllLocationsSelectOption.vue';
 
 import Merchant from './Merchant.vue';
-
-const DEFAULT_LOCATION = 'ALL';
 
 export default defineComponent({
   components: { NearMeSelectOption, AllLocationsSelectOption, Merchant },
@@ -257,17 +261,19 @@ export default defineComponent({
       height: '30px',
       lineHeight: '30px',
     };
-    const location = ref(DEFAULT_LOCATION);
-    const min = ref(undefined) as Ref<undefined | number>;
-    const max = ref(undefined) as Ref<undefined | number>;
+
+    const vm = new SearchPageViewModel();
+    const presenter = new SearchPagePresenter(vm);
+    const panJsApi = new PanJsAPI();
+    const gateway = new SearchDataGateway(panJsApi);
+    const interactor = new SearchInteractor(gateway, presenter);
+
     return {
       // CSS
       radioStyle,
 
       // ViewModel
-      location,
-      min,
-      max,
+      ...vm,
     };
   },
 });
