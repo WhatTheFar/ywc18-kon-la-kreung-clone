@@ -45,16 +45,7 @@
         </div>
         <!-- END: subcategory -->
 
-        <!-- START: divider -->
-        <div
-          style="
-            width: 65%;
-            height: 1px;
-            background-color: rgb(238, 238, 238);
-            margin: 18px 0px;
-          "
-        />
-        <!-- END: divider -->
+        <a-divider />
 
         <div class="flex font-base mb-2" style="color: rgb(153, 153, 153)">
           <span v-html="highlightText"></span>
