@@ -39,12 +39,11 @@
               <div class="w-full sm:w-48 h-10 md:mt-0 hidden md:block">
                 <a-select
                   ref="select"
-                  v-model:value="location"
+                  v-model:value="selectedLocation"
                   class="w-full sm:w-48 h-10 h-10 md:h-10 text-sm"
                   style="border-radius: 0px; border: 0px"
                   :bordered="false"
-                  @focus="focus"
-                  @change="handleChange"
+                  @change="onLocationSelected"
                 >
                   <a-select-option value="NEAR_ME">
                     <NearMeSelectOption />
@@ -52,9 +51,13 @@
                   <a-select-option value="ALL">
                     <AllLocationsSelectOption />
                   </a-select-option>
-                  <!-- TODO: dynamically load provinces  -->
-                  <a-select-option value="Yiminghe"> yiminghe </a-select-option>
-                  <a-select-option value="disabled" disabled> Disabled </a-select-option>
+                  <a-select-option
+                    v-for="province in provinces"
+                    :key="province"
+                    :value="province"
+                  >
+                    {{ province }}
+                  </a-select-option>
                 </a-select>
               </div>
               <div class="w-full sm:w-84 flex-1 h-10 md:border-l">
