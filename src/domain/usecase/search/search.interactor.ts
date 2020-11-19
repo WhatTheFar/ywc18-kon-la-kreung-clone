@@ -44,7 +44,7 @@ export class SearchInteractor {
 
   public async loadSubcetegories(category: string): Promise<void> {
     const subcategories = await this.searchGateway.getSubCategories(category);
-    this.output.setCategories(subcategories);
+    this.output.setSubcategories(subcategories);
   }
 
   public async loadPriceRanges(): Promise<void> {
