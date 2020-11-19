@@ -25,7 +25,7 @@ export interface SearchOutput {
 }
 
 export interface SearchFilter {
-  category: string;
+  category?: string;
   subcategory?: string;
   province?: string | 'NEAR_ME';
   priceRange?: PriceRange;
