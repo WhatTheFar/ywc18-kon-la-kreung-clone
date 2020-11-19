@@ -364,7 +364,7 @@ export default defineComponent({
       // TODO: extract logic to SearchInteractor
       if (vm.priceRangeSelected.value == 'ALL') {
         vm.minPrice.value = undefined;
-        vm.minPrice.value = undefined;
+        vm.maxPrice.value = undefined;
       } else {
         const level = vm.priceRangeSelected.value;
         vm.minPrice.value = vm.priceRanges.value[level][1][0];
