@@ -112,7 +112,7 @@
               style="letter-spacing: -0.02em"
               class="break-word text-xl font-sans font-semibold mb-4"
             >
-              ผลการค้นหา __CATEGORY__, __SEARCH_STRING__ ทั้งหมด
+              ผลการค้นหา {{ searchTopic }}
             </div>
           </div>
           <div class="flex items-start">

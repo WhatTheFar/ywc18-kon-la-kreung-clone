@@ -11,6 +11,16 @@ export class SearchPageViewModel {
     return this.instance;
   }
 
+  public readonly searchTopic = computed(() => {
+    if (this.selectedCategory.value == 'ALL') {
+      return 'ทั้งหมด';
+    } else if (this.selectedSubcategory.value == 'ALL') {
+      return `${this.selectedCategory.value} ทั้งหมด`;
+    } else {
+      return `${this.selectedCategory.value} ${this.selectedSubcategory.value}`;
+    }
+  });
+
   public readonly categories: Ref<string[]> = ref([]);
   public readonly selectedCategory: Ref<string> = ref('ALL');
 
