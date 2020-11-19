@@ -337,6 +337,7 @@ export default defineComponent({
     const onCategorySelected = async (e: Event) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const value = (e.target as any).value;
+      vm.selectedSubcategory.value = 'ALL';
       await interactor.loadSubcategories(value);
       await searchMerchants();
     };
