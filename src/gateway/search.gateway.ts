@@ -41,17 +41,26 @@ export class SearchDataGateway implements SearchGateway {
     return ywc18.priceRange;
   }
 
+  private async subcategoryFilterFor(
+    category: string | undefined,
+    subcategory: string | undefined
+  ): Promise<string[] | undefined> {
+    if (category != undefined && subcategory == undefined) {
+      return await this.getSubCategories(category);
+    }
+    return subcategory ? [subcategory] : undefined;
+  }
+
   public async getMerchants(filter: MerchantFilter): Promise<Merchant[]> {
     const ywc18 = await this.getYWC18();
     const allMerchantsData = ywc18.merchants;
 
+    const { category, subcategory, province, priceLevels } = filter;
+    const subcategories = await this.subcategoryFilterFor(category, subcategory);
+
     return allMerchantsData
       .filter((m) => {
-        const { category, subcategory, province, priceLevels } = filter;
-        if (category != undefined && m.categoryName != category) {
-          return false;
-        }
-        if (subcategory != undefined && m.subcategoryName != subcategory) {
+        if (subcategories != undefined && !subcategories.includes(m.subcategoryName)) {
           return false;
         }
         if (province != undefined && m.addressProvinceName != province) {
