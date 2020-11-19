@@ -170,55 +170,64 @@
                       {{ province }}
                     </a-select-option>
                   </a-select>
-                  <div
-                    class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
-                    style="letter-spacing: -0.02em"
-                  >
-                    ราคา
-                  </div>
-                  <a-select
-                    ref="select"
-                    v-model:value="location"
-                    class="w-full mt-2"
-                    @focus="focus"
-                    @change="handleChange"
-                  >
-                    <a-select-option value="ALL"> ทั้งหมด </a-select-option>
-                    <!-- TODO: dynamically load price ranges  -->
-                  </a-select>
-                  <div
-                    class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
-                    style="letter-spacing: -0.02em"
-                  >
-                    ช่วงราคาสินค้า (บาท)
-                  </div>
-                  <div class="w-full mt-2">
-                    <div class="w-full flex">
-                      <a-input-number
-                        v-model:value="minPrice"
-                        class="flex-1"
-                        :min="0"
-                        placeholder="ราคาต่ำสุด"
-                      />
-                      <div class="mx-2" style="border-right: 0px; padding-top: 4px">
-                        -
-                      </div>
-                      <a-input-number
-                        v-model:value="maxPrice"
-                        class="flex-1"
-                        :min="minPrice"
-                        placeholder="ราคาสูงสุด"
-                      />
-                    </div>
-                    <a-button
-                      class="w-full mt-2"
-                      type="primary"
-                      ghost
-                      @click="onPriceRangeClick"
+                  <template v-if="showPriceRangeSelector">
+                    <div
+                      class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
+                      style="letter-spacing: -0.02em"
                     >
-                      ตกลง
-                    </a-button>
-                  </div>
+                      ราคา
+                    </div>
+                    <a-select
+                      ref="select"
+                      v-model:value="priceRangeSelected"
+                      class="w-full mt-2"
+                      @change="onPriceLevelSelected"
+                    >
+                      <a-select-option value="ALL"> ทั้งหมด </a-select-option>
+                      <a-select-option
+                        v-for="(priceRange, index) in priceRanges"
+                        :key="priceRange[0]"
+                        :value="index"
+                      >
+                        {{ priceRange[0] }}
+                      </a-select-option>
+                    </a-select>
+                  </template>
+                  <template v-if="!showPriceRangeSelector">
+                    <div
+                      class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
+                      style="letter-spacing: -0.02em"
+                    >
+                      ช่วงราคาสินค้า (บาท)
+                    </div>
+                    <div class="w-full mt-2">
+                      <div class="w-full flex">
+                        <a-input-number
+                          v-model:value="minPrice"
+                          class="flex-1"
+                          :min="0"
+                          placeholder="ราคาต่ำสุด"
+                        />
+                        <div class="mx-2" style="border-right: 0px; padding-top: 4px">
+                          -
+                        </div>
+                        <a-input-number
+                          v-model:value="maxPrice"
+                          class="flex-1"
+                          :min="minPrice"
+                          placeholder="ราคาสูงสุด"
+                        />
+                      </div>
+                      <a-button
+                        class="w-full mt-2"
+                        type="primary"
+                        ghost
+                        @click="onPriceRangeClick"
+                      >
+                        ตกลง
+                      </a-button>
+                    </div>
+                  </template>
                   <div v-if="showSubcategories" class="mt-8 first:mt-0">
                     <div
                       class="break-word text-base font-sans font-semibold text-black"
@@ -309,6 +318,19 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onPriceRangeClick = async (e: MouseEvent) => {
+      await searchMerchants();
+    };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const onPriceLevelSelected = async (e: Event) => {
+      // TODO: extract logic to SearchInteractor
+      if (vm.priceRangeSelected.value == 'ALL') {
+        vm.minPrice.value = undefined;
+        vm.minPrice.value = undefined;
+      } else {
+        const level = vm.priceRangeSelected.value;
+        vm.minPrice.value = vm.priceRanges.value[level][1][0];
+        vm.maxPrice.value = vm.priceRanges.value[level][1][1];
+      }
       await searchMerchants();
     };
 

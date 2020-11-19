@@ -22,8 +22,12 @@ export class SearchPageViewModel {
   public readonly selectedLocation: Ref<string> = ref('ALL');
 
   public readonly priceRanges: Ref<Array<[string, PriceRange]>> = ref([]);
+  public readonly priceRangeSelected: Ref<number | 'ALL'> = ref('ALL');
   public readonly minPrice: Ref<number | undefined> = ref();
   public readonly maxPrice: Ref<number | undefined> = ref();
+  public readonly showPriceRangeSelector = computed(() => {
+    return this.selectedCategory.value == 'ร้านอาหารและเครื่องดื่ม';
+  });
 
   public readonly merchants: Ref<Merchant[]> = ref([]);
   public readonly showMerchants = computed(() => {
