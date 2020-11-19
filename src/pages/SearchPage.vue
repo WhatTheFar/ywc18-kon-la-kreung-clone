@@ -228,9 +228,9 @@
                       </a-button>
                     </div>
                   </template>
-                  <template v-if="showSubcategories" class="mt-8 first:mt-0">
+                  <template v-if="showSubcategories">
                     <div
-                      class="break-word text-base font-sans font-semibold text-black"
+                      class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
                       style="letter-spacing: -0.02em"
                     >
                       ประเภท{{ selectedCategory }}
