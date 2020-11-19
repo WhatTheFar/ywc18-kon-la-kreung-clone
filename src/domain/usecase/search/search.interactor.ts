@@ -11,6 +11,7 @@ export interface MerchantFilter {
 export interface SearchGateway {
   getCategories(): Promise<string[]>;
   getSubCategories(category: string): Promise<string[]>;
+  getProvinces(): Promise<string[]>;
   getPriceRangeTexts(): Promise<string[]>;
   getMerchants(filter: MerchantFilter): Promise<Merchant[]>;
 }
@@ -18,6 +19,7 @@ export interface SearchGateway {
 export interface SearchOutput {
   setCategories(cat: string[]): void;
   setSubcategories(sub: string[]): void;
+  setProvinces(provinces: string[]): void;
   setPriceRangeTexts(priceRage: Array<[string, PriceRange]>): void;
   setSearchedMerchants(merchants: Merchant[]): void;
 }
@@ -42,9 +44,14 @@ export class SearchInteractor {
     this.output.setCategories(categories);
   }
 
-  public async loadSubcetegories(category: string): Promise<void> {
+  public async loadSubcategories(category: string): Promise<void> {
     const subcategories = await this.searchGateway.getSubCategories(category);
     this.output.setSubcategories(subcategories);
+  }
+
+  public async loadProvinces(): Promise<void> {
+    const provinces = await this.searchGateway.getProvinces();
+    this.output.setProvinces(provinces);
   }
 
   public async loadPriceRanges(): Promise<void> {

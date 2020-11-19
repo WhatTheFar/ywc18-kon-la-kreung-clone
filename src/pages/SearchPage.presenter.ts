@@ -14,6 +14,10 @@ export class SearchPagePresenter implements SearchOutput {
     this.vm.subcategories.value = subcategories;
   }
 
+  public setProvinces(provinces: string[]): void {
+    this.vm.provinces.value = provinces.sort();
+  }
+
   public setPriceRangeTexts(priceRages: [string, PriceRange][]): void {
     this.vm.priceRanges.value = priceRages;
   }

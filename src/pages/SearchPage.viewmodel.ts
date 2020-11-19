@@ -18,6 +18,9 @@ export class SearchPageViewModel {
     }
   });
 
+  public readonly provinces: Ref<string[]> = ref([]);
+  public readonly selectedLocation: Ref<string> = ref('ALL');
+
   public readonly priceRanges: Ref<Array<[string, PriceRange]>> = ref([]);
   public readonly minPrice: Ref<number | undefined> = ref();
   public readonly mixPrice: Ref<number | undefined> = ref();

@@ -31,6 +31,11 @@ export class SearchDataGateway implements SearchGateway {
     return categoryData.subcategories;
   }
 
+  public async getProvinces(): Promise<string[]> {
+    const ywc18 = await this.getYWC18();
+    return ywc18.provinces;
+  }
+
   public async getPriceRangeTexts(): Promise<string[]> {
     const ywc18 = await this.getYWC18();
     return ywc18.priceRange;

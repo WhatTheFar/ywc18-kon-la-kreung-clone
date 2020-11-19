@@ -150,10 +150,9 @@
                   </div>
                   <a-select
                     ref="select"
-                    v-model:value="location"
+                    v-model:value="selectedLocation"
                     class="w-full mt-2"
-                    @focus="focus"
-                    @change="handleChange"
+                    @change="onLocationSelected"
                   >
                     <a-select-option value="NEAR_ME">
                       <NearMeSelectOption />
@@ -161,7 +160,13 @@
                     <a-select-option value="ALL">
                       <AllLocationsSelectOption />
                     </a-select-option>
-                    <!-- TODO: dynamically load provinces  -->
+                    <a-select-option
+                      v-for="province in provinces"
+                      :key="province"
+                      :value="province"
+                    >
+                      {{ province }}
+                    </a-select-option>
                   </a-select>
                   <div
                     class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
@@ -298,7 +303,13 @@ export default defineComponent({
       await searchMerchants();
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const onLocationSelected = async (e: Event) => {
+      await searchMerchants();
+    };
+
     interactor.loadCategories();
+    interactor.loadProvinces();
     interactor.loadPriceRanges();
 
     return {
@@ -311,6 +322,7 @@ export default defineComponent({
       // Controller
       onCategorySelected,
       onSubcategorySelected,
+      onLocationSelected,
     };
   },
 });
