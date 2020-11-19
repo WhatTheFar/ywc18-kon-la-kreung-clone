@@ -12,3 +12,14 @@
 /*   color: #2c3e50; */
 /*   margin-top: 60px; */
 /* } */
+
+.above-the-fold-input .ant-select-selector,
+.above-the-fold-input .ant-select-selection-search-input {
+  height: 100% !important;
+}
+
+.above-the-fold-input .ant-select-selection-item,
+.above-the-fold-input .ant-select-selection-placeholder {
+  display: flex;
+  align-items: center;
+}
