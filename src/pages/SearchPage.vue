@@ -1,13 +1,13 @@
 <template>
   <div>
     <div
-      style="
-        min-height: 100vh;
-        background-image: url('@/images/result-bg.png');
-        background-position: center center;
-        background-size: cover;
-        background-attachment: fixed;
-      "
+      :style="{
+        minHeight: '100vh',
+        backgroundImage: `url(${resultBg})`,
+        backgroundPosition: 'center center',
+        backgroundSize: 'cover',
+        backgroundAttachment: 'fixed',
+      }"
     >
       <div class="bg-white">
         <div class="relative bg-white z-20">
@@ -22,12 +22,12 @@
               <a href="/">
                 <img
                   style="height: 40px; width: auto"
-                  src="@/images/halfhalf-logo.png"
+                  src="/@/images/halfhalf-logo.png"
                   class="hidden md:block"
                 />
                 <img
                   style="height: 40px; width: auto"
-                  src="@/images/halfhalf-logo-mini.png"
+                  src="/@/images/halfhalf-logo-mini.png"
                   class="block md:hidden"
                 />
               </a>
@@ -85,7 +85,7 @@
             <img
               class="md:hidden mr-4 cursor-pointer"
               style="height: 20px; width: auto"
-              src="@/images/filter.png"
+              src="/@/images/filter.png"
             />
           </div>
           <div style="background-color: rgb(39, 57, 124)">
@@ -326,6 +326,7 @@ import NearMeSelectOption from './select/NearMeSelectOption.vue';
 import AllLocationsSelectOption from './select/AllLocationsSelectOption.vue';
 
 import Merchant from './Merchant.vue';
+import resultBg from '/@/images/result-bg.png';
 
 export default defineComponent({
   components: { NearMeSelectOption, AllLocationsSelectOption, Merchant, LoadingOutlined },
@@ -405,6 +406,9 @@ export default defineComponent({
     return {
       // CSS
       radioStyle,
+
+      // Assets
+      resultBg,
 
       // ViewModel
       ...vm,
