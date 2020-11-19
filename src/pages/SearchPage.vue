@@ -228,7 +228,7 @@
                       </a-button>
                     </div>
                   </template>
-                  <div v-if="showSubcategories" class="mt-8 first:mt-0">
+                  <template v-if="showSubcategories" class="mt-8 first:mt-0">
                     <div
                       class="break-word text-base font-sans font-semibold text-black"
                       style="letter-spacing: -0.02em"
@@ -251,7 +251,7 @@
                         </a-radio>
                       </a-radio-group>
                     </div>
-                  </div>
+                  </template>
                 </div>
               </div>
             </div>
