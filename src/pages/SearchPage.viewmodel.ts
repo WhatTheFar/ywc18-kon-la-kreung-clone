@@ -23,7 +23,7 @@ export class SearchPageViewModel {
 
   public readonly priceRanges: Ref<Array<[string, PriceRange]>> = ref([]);
   public readonly minPrice: Ref<number | undefined> = ref();
-  public readonly mixPrice: Ref<number | undefined> = ref();
+  public readonly maxPrice: Ref<number | undefined> = ref();
 
   public readonly merchants: Ref<Merchant[]> = ref([]);
   public readonly showMerchants = computed(() => {

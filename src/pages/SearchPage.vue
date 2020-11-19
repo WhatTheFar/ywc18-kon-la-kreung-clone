@@ -197,7 +197,7 @@
                   <div class="w-full mt-2">
                     <div class="w-full flex">
                       <a-input-number
-                        v-model:value="min"
+                        v-model:value="minPrice"
                         class="flex-1"
                         :min="0"
                         placeholder="ราคาต่ำสุด"
@@ -206,14 +206,21 @@
                         -
                       </div>
                       <a-input-number
-                        v-model:value="max"
+                        v-model:value="maxPrice"
                         class="flex-1"
-                        :min="min"
+                        :min="minPrice"
                         placeholder="ราคาสูงสุด"
                       />
                     </div>
                     <!-- TODO: handle onclick -->
-                    <a-button class="w-full mt-2" type="primary" ghost> ตกลง </a-button>
+                    <a-button
+                      class="w-full mt-2"
+                      type="primary"
+                      ghost
+                      @click="onPriceRangeClick"
+                    >
+                      ตกลง
+                    </a-button>
                   </div>
                   <div v-if="showSubcategories" class="mt-8 first:mt-0">
                     <div
@@ -297,8 +304,13 @@ export default defineComponent({
       };
       await interactor.search({
         category: sanitizeFilter(vm.selectedCategory.value),
+        priceRange: [vm.minPrice.value || 0, vm.maxPrice.value],
       });
     };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const onPriceRangeClick = async (e: MouseEvent) => {
+      await searchMerchants();
     };
 
     const onCategorySelected = async (e: Event) => {
@@ -337,6 +349,7 @@ export default defineComponent({
       ...vm,
 
       // Controller
+      onPriceRangeClick,
       onCategorySelected,
       onSearchSelected,
       onSubcategorySelected,
