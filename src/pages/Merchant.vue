@@ -57,8 +57,7 @@
         <!-- END: divider -->
 
         <div class="flex font-base mb-2" style="color: rgb(153, 153, 153)">
-          <!-- TODO: sanitize html text -->
-          {{ highlightText }}
+          <span v-html="highlightText"></span>
         </div>
         <div
           class="flex font-base flex-wrap items-center mb-2"
@@ -78,7 +77,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue';
+import { defineComponent, ref, toRefs } from 'vue';
+import DOMPurify from 'dompurify';
 
 import { Merchant } from '/@/domain/entity/merchant.entity';
 import { SearchPageViewModel } from './SearchPage.viewmodel';
@@ -101,6 +101,8 @@ export default defineComponent({
       return {
         ...toRefs(merchant),
         priceRangeText,
+        // override merchant's keys
+        highlightText: ref(DOMPurify.sanitize(merchant.highlightText)),
       };
     }
     return {};
