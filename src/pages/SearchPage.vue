@@ -62,22 +62,23 @@
               </div>
               <div class="w-full sm:w-84 flex-1 h-10 md:border-l">
                 <a-select
-                  v-model:value="value"
                   class="w-full md:mt-0 h-full text-sm md:text-sm border-0 flex items-center"
                   placeholder="ค้นหา ชื่อ ร้านอาหาร และเครื่องดื่ม ร้านธงฟ้า ร้านค้า OTOP และสินค้าทั่วไป"
                   show-search
                   option-filter-prop="children"
                   :show-arrow="true"
-                  :filter-option="() => true"
                   :bordered="false"
-                  @focus="handleFocus"
-                  @blur="handleBlur"
-                  @change="handleChange"
+                  @change="onSearchSelected"
                 >
                   <!-- TODO: add suffixIcon -->
-                  <a-select-option value="jack"> Jack </a-select-option>
-                  <a-select-option value="lucy"> Lucy </a-select-option>
-                  <a-select-option value="tom"> Tom </a-select-option>
+                  <!-- TODO: add select option's prefix icon -->
+                  <a-select-option
+                    v-for="category in categories"
+                    :key="category"
+                    :value="category"
+                  >
+                    {{ category }}
+                  </a-select-option>
                 </a-select>
               </div>
             </div>
@@ -301,6 +302,13 @@ export default defineComponent({
       await searchMerchants();
     };
 
+    const onSearchSelected = async (value: string) => {
+      // TODO: extract logic to SearchInteractor
+      vm.selectedCategory.value = value;
+      await interactor.loadSubcategories(value);
+      await searchMerchants();
+    };
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onSubcategorySelected = async (e: Event) => {
       await searchMerchants();
@@ -324,6 +332,7 @@ export default defineComponent({
 
       // Controller
       onCategorySelected,
+      onSearchSelected,
       onSubcategorySelected,
       onLocationSelected,
     };
