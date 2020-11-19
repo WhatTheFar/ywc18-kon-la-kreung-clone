@@ -90,8 +90,9 @@ import { defineComponent, reactive, toRefs } from 'vue';
 import { Merchant } from '/@/domain/entity/merchant.entity';
 
 import ParkingIcon from './faci/ParkingIcon.vue';
+import PetIcon from './faci/PetIcon.vue';
 
 export default defineComponent<{ merchant: Merchant }>({
-  components: { ParkingIcon },
+  components: { ParkingIcon, PetIcon },
 });
 </script>
