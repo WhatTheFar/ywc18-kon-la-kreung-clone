@@ -127,13 +127,19 @@
                     ประเภทร้านค้า
                   </div>
                   <div class="mt-4 first:mt-0">
-                    <a-radio-group v-model:value="value" @change="onChange">
-                      <a-radio :style="radioStyle" :value="1">ทั้งหมด</a-radio>
-                      <!-- TODO: dynamically load categories  -->
-                      <a-radio :style="radioStyle" :value="2"
-                        >ร้านอาหารและเครื่องดื่ม
+                    <a-radio-group
+                      v-model:value="selectedCategory"
+                      @change="onCategorySelected"
+                    >
+                      <a-radio :style="radioStyle" value="ALL">ทั้งหมด</a-radio>
+                      <a-radio
+                        v-for="category in categories"
+                        :key="category"
+                        :value="category"
+                        :style="radioStyle"
+                      >
+                        {{ category }}
                       </a-radio>
-                      <a-radio :style="radioStyle" :value="2">ร้านค้า OTOP</a-radio>
                     </a-radio-group>
                   </div>
                   <div
@@ -268,12 +274,29 @@ export default defineComponent({
     const gateway = new SearchDataGateway(panJsApi);
     const interactor = new SearchInteractor(gateway, presenter);
 
+    const searchMerchants = async () => {
+      await interactor.search({ category: vm.selectedCategory.value });
+    };
+
+    const onCategorySelected = async (e: Event) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const value = (e.target as any).value;
+      await interactor.loadSubcategories(value);
+      await searchMerchants();
+    };
+
+    interactor.loadCategories();
+    interactor.loadPriceRanges();
+
     return {
       // CSS
       radioStyle,
 
       // ViewModel
       ...vm,
+
+      // Controller
+      onCategorySelected,
     };
   },
 });
