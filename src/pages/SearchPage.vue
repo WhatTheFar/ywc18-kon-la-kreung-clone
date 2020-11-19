@@ -88,8 +88,6 @@
               src="@/images/filter.png"
             />
           </div>
-          <!-- TODO: delete this comment -->
-          <!-- <div class="Menubar__BreadcrumbWrapper-oz71hl-1 fCZpYh"> -->
           <div style="background-color: rgb(39, 57, 124)">
             <div
               class="flex justify-start px-4 md:px-8 py-3 z-10 overflow-x-auto"
@@ -212,7 +210,6 @@
                         placeholder="ราคาสูงสุด"
                       />
                     </div>
-                    <!-- TODO: handle onclick -->
                     <a-button
                       class="w-full mt-2"
                       type="primary"
