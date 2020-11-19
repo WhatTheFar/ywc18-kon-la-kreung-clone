@@ -407,6 +407,7 @@ export default defineComponent({
 
       // Controller
       onPriceRangeClick,
+      onPriceLevelSelected,
       onCategorySelected,
       onSearchSelected,
       onSubcategorySelected,
