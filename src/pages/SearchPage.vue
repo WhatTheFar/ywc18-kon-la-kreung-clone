@@ -304,6 +304,8 @@ export default defineComponent({
       };
       await interactor.search({
         category: sanitizeFilter(vm.selectedCategory.value),
+        subcategory: sanitizeFilter(vm.selectedSubcategory.value),
+        province: sanitizeFilter(vm.selectedLocation.value),
         priceRange: [vm.minPrice.value || 0, vm.maxPrice.value],
       });
     };
