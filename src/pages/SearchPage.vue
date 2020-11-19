@@ -206,21 +206,29 @@
                     <!-- TODO: handle onclick -->
                     <a-button class="w-full mt-2" type="primary" ghost> ตกลง </a-button>
                   </div>
-                  <div
-                    class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
-                    style="letter-spacing: -0.02em"
-                  >
-                    ประเภทร้านอาหารและเครื่องดื่ม
-                  </div>
-                  <div class="mt-4 first:mt-0">
-                    <a-radio-group v-model:value="value" @change="onChange">
-                      <a-radio :style="radioStyle" :value="1">ทั้งหมด</a-radio>
-                      <!-- TODO: dynamically load sub-categories  -->
-                      <a-radio :style="radioStyle" :value="2"
-                        >ร้านอาหารและเครื่องดื่ม
-                      </a-radio>
-                      <a-radio :style="radioStyle" :value="2">ร้านค้า OTOP</a-radio>
-                    </a-radio-group>
+                  <div v-if="showSubcategories" class="mt-8 first:mt-0">
+                    <div
+                      class="break-word text-base font-sans font-semibold text-black"
+                      style="letter-spacing: -0.02em"
+                    >
+                      ประเภท{{ selectedCategory }}
+                    </div>
+                    <div class="mt-4 first:mt-0">
+                      <a-radio-group
+                        v-model:value="selectedSubcategory"
+                        @change="onSubcategorySelected"
+                      >
+                        <a-radio :style="radioStyle" value="ALL">ทั้งหมด</a-radio>
+                        <a-radio
+                          v-for="subcategory in subcategories"
+                          :key="subcategory"
+                          :value="subcategory"
+                          :style="radioStyle"
+                        >
+                          {{ subcategory }}
+                        </a-radio>
+                      </a-radio-group>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -285,6 +293,11 @@ export default defineComponent({
       await searchMerchants();
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const onSubcategorySelected = async (e: Event) => {
+      await searchMerchants();
+    };
+
     interactor.loadCategories();
     interactor.loadPriceRanges();
 
@@ -297,6 +310,7 @@ export default defineComponent({
 
       // Controller
       onCategorySelected,
+      onSubcategorySelected,
     };
   },
 });

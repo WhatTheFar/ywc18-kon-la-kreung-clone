@@ -9,7 +9,13 @@ export class SearchPageViewModel {
   public readonly subcategories: Ref<string[]> = ref([]);
   public readonly selectedSubcategory: Ref<string> = ref('ALL');
   public readonly showSubcategories = computed(() => {
-    return this.subcategories.value != undefined && this.subcategories.value.length > 0;
+    switch (this.selectedCategory.value) {
+      case undefined:
+      case 'ALL':
+        return false;
+      default:
+        return true;
+    }
   });
 
   public readonly priceRanges: Ref<Array<[string, PriceRange]>> = ref([]);
