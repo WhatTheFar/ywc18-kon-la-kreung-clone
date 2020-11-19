@@ -292,7 +292,13 @@ export default defineComponent({
     const interactor = new SearchInteractor(gateway, presenter);
 
     const searchMerchants = async () => {
-      await interactor.search({ category: vm.selectedCategory.value });
+      const sanitizeFilter = (text: string) => {
+        return text == 'ALL' ? undefined : text;
+      };
+      await interactor.search({
+        category: sanitizeFilter(vm.selectedCategory.value),
+      });
+    };
     };
 
     const onCategorySelected = async (e: Event) => {
