@@ -150,26 +150,28 @@
                   >
                     จังหวัด/ใกล้ฉัน
                   </div>
-                  <a-select
-                    ref="select"
-                    v-model:value="selectedLocation"
-                    class="w-full mt-2"
-                    @change="onLocationSelected"
-                  >
-                    <a-select-option value="NEAR_ME">
-                      <NearMeSelectOption />
-                    </a-select-option>
-                    <a-select-option value="ALL">
-                      <AllLocationsSelectOption />
-                    </a-select-option>
-                    <a-select-option
-                      v-for="province in provinces"
-                      :key="province"
-                      :value="province"
+                  <div class="w-full mt-2">
+                    <a-select
+                      ref="select"
+                      v-model:value="selectedLocation"
+                      class="w-full"
+                      @change="onLocationSelected"
                     >
-                      {{ province }}
-                    </a-select-option>
-                  </a-select>
+                      <a-select-option value="NEAR_ME">
+                        <NearMeSelectOption />
+                      </a-select-option>
+                      <a-select-option value="ALL">
+                        <AllLocationsSelectOption />
+                      </a-select-option>
+                      <a-select-option
+                        v-for="province in provinces"
+                        :key="province"
+                        :value="province"
+                      >
+                        {{ province }}
+                      </a-select-option>
+                    </a-select>
+                  </div>
                   <template v-if="showPriceRangeSelector">
                     <div
                       class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
@@ -177,21 +179,23 @@
                     >
                       ราคา
                     </div>
-                    <a-select
-                      ref="select"
-                      v-model:value="priceRangeSelected"
-                      class="w-full mt-2"
-                      @change="onPriceLevelSelected"
-                    >
-                      <a-select-option value="ALL"> ทั้งหมด </a-select-option>
-                      <a-select-option
-                        v-for="(priceRange, index) in priceRanges"
-                        :key="priceRange[0]"
-                        :value="index"
+                    <div class="w-full mt-2">
+                      <a-select
+                        ref="select"
+                        v-model:value="priceRangeSelected"
+                        class="w-full"
+                        @change="onPriceLevelSelected"
                       >
-                        {{ priceRange[0] }}
-                      </a-select-option>
-                    </a-select>
+                        <a-select-option value="ALL"> ทั้งหมด </a-select-option>
+                        <a-select-option
+                          v-for="(priceRange, index) in priceRanges"
+                          :key="priceRange[0]"
+                          :value="index"
+                        >
+                          {{ priceRange[0] }}
+                        </a-select-option>
+                      </a-select>
+                    </div>
                   </template>
                   <template v-if="!showPriceRangeSelector">
                     <div
