@@ -110,7 +110,7 @@
           <div class="flex justify-between items-center mb-8">
             <div
               style="letter-spacing: -0.02em"
-              class="break-word text-xl font-sans font-semibold mb-4"
+              class="break-word text-xl font-semibold mb-4"
             >
               ผลการค้นหา {{ searchTopic }}
             </div>
@@ -124,7 +124,7 @@
                 <div>
                   <div
                     style="letter-spacing: -0.02em"
-                    class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
+                    class="mt-8 first:mt-0 break-word text-base font-semibold text-black"
                   >
                     ประเภทร้านค้า
                   </div>
@@ -146,7 +146,7 @@
                   </div>
                   <div
                     style="letter-spacing: -0.02em"
-                    class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
+                    class="mt-8 first:mt-0 break-word text-base font-semibold text-black"
                   >
                     จังหวัด/ใกล้ฉัน
                   </div>
@@ -174,7 +174,7 @@
                   </div>
                   <template v-if="showPriceRangeSelector">
                     <div
-                      class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
+                      class="mt-8 first:mt-0 break-word text-base font-semibold text-black"
                       style="letter-spacing: -0.02em"
                     >
                       ราคา
@@ -199,7 +199,7 @@
                   </template>
                   <template v-if="!showPriceRangeSelector">
                     <div
-                      class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
+                      class="mt-8 first:mt-0 break-word text-base font-semibold text-black"
                       style="letter-spacing: -0.02em"
                     >
                       ช่วงราคาสินค้า (บาท)
@@ -234,7 +234,7 @@
                   </template>
                   <template v-if="showSubcategories">
                     <div
-                      class="mt-8 first:mt-0 break-word text-base font-sans font-semibold text-black"
+                      class="mt-8 first:mt-0 break-word text-base font-semibold text-black"
                       style="letter-spacing: -0.02em"
                     >
                       ประเภท{{ selectedCategory }}
@@ -290,7 +290,7 @@
                 <div class="grid grid-cols-1 gap-2">
                   <div class="text-center" style="margin-top: 5rem">
                     <div
-                      class="mt-8 first:mt-0 break-word text-2xl md:text-4xl font-sans font-bold"
+                      class="mt-8 first:mt-0 break-word text-2xl md:text-4xl font-bold"
                       style="letter-spacing: -0.02em"
                     >
                       ไม่พบสถานที่ที่คุณกำลังหา

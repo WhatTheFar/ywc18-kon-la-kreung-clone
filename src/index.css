@@ -13,6 +13,17 @@
 /*   margin-top: 60px; */
 /* } */
 
+#app {
+  font-family: IBM Plex Sans Thai, sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+@font-face {
+  font-family: IBM Plex Sans Thai;
+  src: url(fonts/IBMPlexSansThai-Medium.woff2);
+}
+
 .above-the-fold-input .ant-select-selector,
 .above-the-fold-input .ant-select-selection-search-input {
   height: 100% !important;
