@@ -6,29 +6,27 @@
       class="lg:flex"
       style="background-color: white; border: 1px solid rgb(201, 225, 233)"
     >
-      <!-- TODO: coverImageId -->
+      <!-- TODO: handle undefined coverImageId -->
       <div
+        id="coverImageId"
         class="w-full lg:max-w-xs"
-        src="https://search-merchant.xn--42caj4e6bk1f5b1j.com/img/upload/395acd16-d5f0-45d5-8ec4-c7d7f6e141bc/medium"
-        style="
-          min-height: 14rem;
-          background-color: rgb(236, 236, 236);
-          background-image: url(https://search-merchant.xn--42caj4e6bk1f5b1j.com/img/upload/395acd16-d5f0-45d5-8ec4-c7d7f6e141bc/medium);
-          background-size: cover;
-          background-repeat: no-repeat;
-          background-position: center center;
-          border-radius: 2px;
-        "
+        :style="{
+          minHeight: '14rem',
+          backgroundColor: 'rgb(236, 236, 236)',
+          backgroundImage: `url(${coverImageId})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+          borderRadius: '2px',
+        }"
       ></div>
       <div class="p-4 flex-1">
         <!-- START: shopNameTH -->
         <div class="text-black text-xl font-semibold">
           <div class="flex justify-between">
             <div class="flex items-center">
-              <!-- TODO: shopNameTH -->
-              ร้านคุณแหม่มของฝากประจวบ
-              <!-- TODO: toggle if isOpen -->
-              <div class="ml-4">
+              {{ shopNameTH }}
+              <div v-if="isOpen" class="ml-4">
                 <a-tag color="#1bc300"> เปิด </a-tag>
               </div>
             </div>
@@ -39,14 +37,11 @@
 
         <!-- START: subcategory -->
         <div class="flex font-sm flex-wrap" style="color: rgb(153, 153, 153)">
-          <!-- TODO: subcategoryName -->
-          <div>ผลิตภัณฑ์ของใช้/ของตกแต่ง/ของที่ระลึก</div>
+          <div>{{ subcategoryName }}</div>
           <div class="mx-3">|</div>
-          <!-- TODO: priceLevel -->
-          <div>ช่วงราคา 25 - 500 บาท</div>
+          <div>{{ priceRangeText }}</div>
           <div class="mx-3">|</div>
-          <!-- TODO: addressDistrictName addressProvinceName -->
-          <div>เมืองประจวบคีรีขันธ์ ประจวบคีรีขันธ์</div>
+          <div>{{ addressDistrictName }} {{ addressProvinceName }}</div>
         </div>
         <!-- END: subcategory -->
 
@@ -62,23 +57,21 @@
         <!-- END: divider -->
 
         <div class="flex font-base mb-2" style="color: rgb(153, 153, 153)">
-          <!-- TODO: highlightText -->
-          ชีสเชค ระพีพัฒน์ แครกเกอร์ จักรพรรดิ และบิสกิตรสชาติต่างๆ
-          ไส้แยมสับประรดสูตรไม่เพิ่มน้ำตาล ภายใต้การผลิตโดย ร้านคุณแหม่ม และสินค้าต่างๆ
-          ที่มีให้เลือก ที่เน้นเพื่อสุขภาพ ไม่เพิ่มน้ำตาล ไม่หวาน มีแต่กลมกล่อม
+          <!-- TODO: sanitize html text -->
+          {{ highlightText }}
         </div>
         <div
           class="flex font-base flex-wrap items-center mb-2"
           style="color: rgb(153, 153, 153)"
         >
-          <!-- TODO: recommendedItems -->
           <div class="mr-2 font-medium" style="color: rgb(68, 68, 68)">สินค้าแนะนำ:</div>
-          <div class="mr-1">ชีสเชคระพีพัฒน์,</div>
-          <div class="mr-1">แครกเกอร์จักรพรรดิ,</div>
-          <div class="mr-1">สับประรดกวนไม่มีน้ำตาล</div>
+          {{ recommendedItems.join(',') }}
         </div>
         <div class="flex font-base flex-wrap mb-4 mt-4" style="color: rgb(153, 153, 153)">
-          <ParkingIcon />
+          <template v-for="faci in facilities" :key="faci">
+            <ParkingIcon v-if="faci == 'ที่จอดรถ'" />
+            <PetIcon v-if="faci == 'สามารถนำสัตว์เลี้ยงเข้าได้'" />
+          </template>
         </div>
       </div></div
   ></a>
@@ -88,11 +81,38 @@
 import { defineComponent, reactive, toRefs } from 'vue';
 
 import { Merchant } from '/@/domain/entity/merchant.entity';
+import { SearchPageViewModel } from './SearchPage.viewmodel';
 
 import ParkingIcon from './faci/ParkingIcon.vue';
 import PetIcon from './faci/PetIcon.vue';
 
-export default defineComponent<{ merchant: Merchant }>({
+export default defineComponent({
   components: { ParkingIcon, PetIcon },
+  props: {
+    merchant: Merchant,
+  },
+  setup: (props) => {
+    // TODO: fix no-setup-props-destructure
+    // eslint-disable-next-line vue/no-setup-props-destructure
+    const merchant = props.merchant;
+    if (merchant != undefined) {
+      const vm = SearchPageViewModel.getInstance();
+      const priceRangeText = vm.priceRanges.value[merchant.priceLevel - 1][0];
+      return {
+        ...toRefs(merchant),
+        priceRangeText,
+      };
+    }
+    return {};
+  },
 });
 </script>
+
+<style scoped>
+@media (min-width: 1024px) {
+  #coverImageId {
+    width: 250px !important;
+    margin: 5px;
+  }
+}
+</style>

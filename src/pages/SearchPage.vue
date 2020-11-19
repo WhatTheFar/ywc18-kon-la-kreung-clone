@@ -256,9 +256,15 @@
               </div>
             </div>
             <div class="flex-1">
-              <div class="grid grid-cols-1 gap-2">
-                <Merchant />
-              </div>
+              <template v-if="showMerchants">
+                <div class="grid grid-cols-1 gap-2">
+                  <Merchant
+                    v-for="merchant in merchants"
+                    :key="merchant.shopNameTH"
+                    :merchant="merchant"
+                  />
+                </div>
+              </template>
               <div class="flex justify-center">
                 <a-button
                   class="mt-10 w-full max-w-sm block"
@@ -362,6 +368,7 @@ export default defineComponent({
     interactor.loadCategories();
     interactor.loadProvinces();
     interactor.loadPriceRanges();
+    searchMerchants();
 
     return {
       // CSS
