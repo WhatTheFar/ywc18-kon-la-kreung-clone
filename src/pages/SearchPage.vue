@@ -298,7 +298,7 @@ export default defineComponent({
       lineHeight: '30px',
     };
 
-    const vm = new SearchPageViewModel();
+    const vm = SearchPageViewModel.getInstance();
     const presenter = new SearchPagePresenter(vm);
     const panJsApi = new PanJsAPI();
     const gateway = new SearchDataGateway(panJsApi);

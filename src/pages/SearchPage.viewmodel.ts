@@ -3,6 +3,14 @@ import { Merchant } from '../domain/entity/merchant.entity';
 import { PriceRange } from '../domain/usecase/search/price';
 
 export class SearchPageViewModel {
+  private static instance?: SearchPageViewModel;
+  public static getInstance(): SearchPageViewModel {
+    if (this.instance == undefined) {
+      this.instance = new SearchPageViewModel();
+    }
+    return this.instance;
+  }
+
   public readonly categories: Ref<string[]> = ref([]);
   public readonly selectedCategory: Ref<string> = ref('ALL');
 
