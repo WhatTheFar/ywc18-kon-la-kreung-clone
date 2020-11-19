@@ -38,6 +38,7 @@ export class SearchPageViewModel {
   });
 
   public readonly merchants: Ref<Merchant[]> = ref([]);
+  public readonly loadingMerchants: Ref<boolean> = ref(true);
   public readonly showMerchants = computed(() => {
     return this.merchants.value != undefined && this.merchants.value.length > 0;
   });

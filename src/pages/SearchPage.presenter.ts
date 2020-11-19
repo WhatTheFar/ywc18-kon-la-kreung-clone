@@ -25,4 +25,8 @@ export class SearchPagePresenter implements SearchOutput {
   public setSearchedMerchants(merchants: Merchant[]): void {
     this.vm.merchants.value = merchants;
   }
+
+  public setMerchantLoading(loading: boolean): void {
+    this.vm.loadingMerchants.value = loading;
+  }
 }

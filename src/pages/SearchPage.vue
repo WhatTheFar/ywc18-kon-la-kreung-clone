@@ -256,7 +256,16 @@
               </div>
             </div>
             <div class="flex-1">
-              <template v-if="showMerchants">
+              <template v-if="loadingMerchants">
+                <div class="mt-10 flex justify-center">
+                  <a-spin>
+                    <template #indicator>
+                      <LoadingOutlined style="font-size: 60px" spin />
+                    </template>
+                  </a-spin>
+                </div>
+              </template>
+              <template v-else-if="showMerchants">
                 <div class="grid grid-cols-1 gap-2">
                   <Merchant
                     v-for="merchant in merchants"
@@ -273,7 +282,7 @@
                   </a-button>
                 </div>
               </template>
-              <template v-if="!showMerchants">
+              <template v-else>
                 <div class="grid grid-cols-1 gap-2">
                   <div class="text-center" style="margin-top: 5rem">
                     <div
@@ -301,6 +310,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, Ref } from 'vue';
+import { LoadingOutlined } from '@ant-design/icons-vue';
 
 import { PanJsAPI } from '/@/api/panjs';
 import { SearchDataGateway } from '/@/gateway/search.gateway';
@@ -314,7 +324,7 @@ import AllLocationsSelectOption from './select/AllLocationsSelectOption.vue';
 import Merchant from './Merchant.vue';
 
 export default defineComponent({
-  components: { NearMeSelectOption, AllLocationsSelectOption, Merchant },
+  components: { NearMeSelectOption, AllLocationsSelectOption, Merchant, LoadingOutlined },
   setup: () => {
     const radioStyle = {
       display: 'block',

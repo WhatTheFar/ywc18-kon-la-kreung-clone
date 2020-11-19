@@ -11,6 +11,7 @@
     "format": "prettier --config ./.prettierrc --write \"./src/**/*.{vue,ts}\""
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^5.1.5",
     "ant-design-vue": "^2.0.0-rc.1",
     "axios": "^0.21.0",
     "super-expressive": "^1.4.0",

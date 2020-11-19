@@ -22,6 +22,7 @@ export interface SearchOutput {
   setProvinces(provinces: string[]): void;
   setPriceRangeTexts(priceRage: Array<[string, PriceRange]>): void;
   setSearchedMerchants(merchants: Merchant[]): void;
+  setMerchantLoading(loading: boolean): void;
 }
 
 export interface SearchFilter {
@@ -86,8 +87,10 @@ export class SearchInteractor {
       province: filter.province,
       priceLevels: await this.priceLevelFilterFor(filter.priceRange),
     };
+    this.output.setMerchantLoading(true);
     const merchants = await this.searchGateway.getMerchants(merchantFilter);
     this.output.setSearchedMerchants(merchants);
+    this.output.setMerchantLoading(false);
   }
 }
 
