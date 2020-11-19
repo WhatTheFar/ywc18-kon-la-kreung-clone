@@ -22,15 +22,17 @@ describe('Price', () => {
 
   describe('Parse price level from price range', () => {
     describe.each`
-      priceRange    | expected
-      ${[0, 100]}   | ${[1]}
-      ${[0, 120]}   | ${[1]}
-      ${[0, 500]}   | ${[1, 2]}
-      ${[100, 599]} | ${[2]}
-      ${[100, 600]} | ${[2, 3]}
-      ${[500]}      | ${[4]}
-      ${[600]}      | ${[4]}
-      ${[620]}      | ${[]}
+      priceRange        | expected
+      ${[0]}            | ${[1, 2, 3, 4]}
+      ${[0, undefined]} | ${[1, 2, 3, 4]}
+      ${[0, 100]}       | ${[1]}
+      ${[0, 120]}       | ${[1]}
+      ${[0, 500]}       | ${[1, 2]}
+      ${[100, 599]}     | ${[2]}
+      ${[100, 600]}     | ${[2, 3]}
+      ${[500]}          | ${[4]}
+      ${[600]}          | ${[4]}
+      ${[620]}          | ${[]}
     `('priceRangeFor($priceRange, levelRanges)', ({ priceRange, expected }) => {
       test('Should returns valid price level', async () => {
         const actual: number[] | undefined = priceLevelFor(priceRange, priceLevelRange);
