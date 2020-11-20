@@ -6,7 +6,7 @@ export const RoutePaths = {
   search: '/',
 };
 
-const history = createWebHistory();
+const history = createWebHistory(import.meta.env.BASE_URL);
 const routes: RouteRecordRaw[] = [
   {
     path: RoutePaths.search,
