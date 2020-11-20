@@ -1,11 +1,12 @@
 // vite.config.ts
-import { SharedConfig } from 'vite';
+import { UserConfig } from 'vite';
 import path from 'path';
 
-const config: SharedConfig = {
+const config: UserConfig = {
   alias: {
     '/@/': path.resolve(__dirname, 'src'),
   },
+  assetsDir: 'assets',
 };
 
 export default config;
