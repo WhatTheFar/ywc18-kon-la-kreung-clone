@@ -22,7 +22,7 @@ jobs:
 
       - name: Build
         run: |
-          yarn build
+          yarn build --base=/ywc18-kon-la-kreung-clone
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
