@@ -313,7 +313,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from 'vue';
+import { defineComponent } from 'vue';
 import { LoadingOutlined } from '@ant-design/icons-vue';
 
 import { PanJsAPI } from '/@/api/panjs';
@@ -322,14 +322,21 @@ import { SearchInteractor } from '/@/domain/usecase/search/search.interactor';
 import { SearchPageViewModel } from './SearchPage.viewmodel';
 import { SearchPagePresenter } from './SearchPage.presenter';
 
-import NearMeSelectOption from './select/NearMeSelectOption.vue';
-import AllLocationsSelectOption from './select/AllLocationsSelectOption.vue';
+import NearMeSelectOption from '/@/components/select/NearMeSelectOption.vue';
+import AllLocationsSelectOption from '/@/components/select/AllLocationsSelectOption.vue';
+import Merchant from '/@/components/Merchant.vue';
 
-import Merchant from './Merchant.vue';
 import resultBg from '/@/images/result-bg.png';
 
 export default defineComponent({
-  components: { NearMeSelectOption, AllLocationsSelectOption, Merchant, LoadingOutlined },
+  components: {
+    // Custom Components
+    NearMeSelectOption,
+    AllLocationsSelectOption,
+    Merchant,
+    // Library Components
+    LoadingOutlined,
+  },
   setup: () => {
     const radioStyle = {
       display: 'block',

@@ -48,6 +48,7 @@
         <a-divider />
 
         <div class="flex font-base mb-2" style="color: rgb(153, 153, 153)">
+          <!-- eslint-disable-next-line vue/no-v-html -->
           <span v-html="highlightText"></span>
         </div>
         <div
@@ -72,31 +73,23 @@ import { defineComponent, ref, toRefs } from 'vue';
 import DOMPurify from 'dompurify';
 
 import { Merchant } from '/@/domain/entity/merchant.entity';
-import { SearchPageViewModel } from './SearchPage.viewmodel';
 
-import ParkingIcon from './faci/ParkingIcon.vue';
-import PetIcon from './faci/PetIcon.vue';
+import ParkingIcon from '/@/components/facilities/ParkingIcon.vue';
+import PetIcon from '/@/components/facilities/PetIcon.vue';
 
 export default defineComponent({
   components: { ParkingIcon, PetIcon },
   props: {
-    merchant: Merchant,
+    merchant: { type: Merchant, required: true },
+    priceRangeText: { type: String, default: '' },
   },
   setup: (props) => {
-    // TODO: fix no-setup-props-destructure
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const merchant = props.merchant;
-    if (merchant != undefined) {
-      const vm = SearchPageViewModel.getInstance();
-      const priceRangeText = vm.priceRanges.value[merchant.priceLevel - 1][0];
-      return {
-        ...toRefs(merchant),
-        priceRangeText,
-        // override merchant's keys
-        highlightText: ref(DOMPurify.sanitize(merchant.highlightText)),
-      };
-    }
-    return {};
+    const { merchant } = toRefs(props);
+    return {
+      ...merchant.value,
+      // override merchant's keys
+      highlightText: ref(DOMPurify.sanitize(merchant.value.highlightText)),
+    };
   },
 });
 </script>
