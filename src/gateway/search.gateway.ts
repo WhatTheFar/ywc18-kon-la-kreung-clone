@@ -6,13 +6,13 @@ import {
 } from '../domain/usecase/search/search.interactor';
 
 export class SearchDataGateway implements SearchGateway {
-  private ywc18?: YWC18;
+  private ywc18?: Promise<YWC18>;
 
   constructor(private readonly panJsApi: PanJsAPI) {}
 
   private async getYWC18(): Promise<YWC18> {
     if (this.ywc18 == undefined) {
-      this.ywc18 = await this.panJsApi.getYWC18();
+      this.ywc18 = this.panJsApi.getYWC18();
     }
     return this.ywc18;
   }
